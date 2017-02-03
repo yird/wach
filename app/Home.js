@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import Header from './Header'
+import MovieCard from './MovieCard'
 
 
 class App extends React.Component{
@@ -9,9 +11,14 @@ class App extends React.Component{
         super(props);
     }
 
-    render(){
-        return <h1>Welcome</h1> 
-    }
+  render() {
+    return (
+      <div>
+        <Header></Header>
+        <MovieCard></MovieCard>
+    </div>
+    )
+  }
 }
 
 ReactDOM.render(<App />, document.getElementById('root'))
