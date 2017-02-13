@@ -14,7 +14,7 @@ export default class MovieCard extends React.Component{
         }
     }
     componentDidMount(){
-      var api_key = 'your api key';
+      var api_key = 'your api';
       axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}`)
         .then((res) => {
           this.setState({
@@ -25,25 +25,25 @@ export default class MovieCard extends React.Component{
 
     render() {
       return (
-        <div>
-          <Item.Group divided>
+        <div className='rapper'>
+          <Item.Group inverse>
             {this.state.all.map(function(res){
               return(
                 <Item>
-                  <Item.Image src='http://semantic-ui.com/images/avatar2/large/matthew.png' />
+                  <Item.Image src={`https://image.tmdb.org/t/p/w500${res.poster_path}`} />
 
                   <Item.Content>
                     <Item.Header as='a'>{res.original_title}</Item.Header>
                     <Item.Meta>
-                      <span className='cinema'>IFC Cinema</span>
+                      <span className='cinema'>TMDB</span>
+                      <Label>{res.release_date}</Label>
                     </Item.Meta>
                     <Item.Description>{res.overview}</Item.Description>
                     <Item.Extra>
-                      <Button primary floated='right'>
-                        Buy tickets
+                      <Button primary>
+                        Watch
                         <Icon name='right chevron' />
                       </Button>
-                      <Label>{res.release_date}</Label>
                     </Item.Extra>
                   </Item.Content>
                 </Item>

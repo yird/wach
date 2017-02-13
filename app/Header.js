@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Menu } from 'semantic-ui-react'
+import { Sidebar, Segment, Input, Menu, Button Image, Icon, Header } from 'semantic-ui-react'
 
 
 export default class Header extends React.Component{
@@ -27,8 +27,12 @@ export default class Header extends React.Component{
             <Input icon='search' placeholder='Search...' />
           </Menu.Item>
         <Menu.Menu position='right'>
-          <Menu.Item name='sign up' active={activeItem === 'sign up'} onClick={this.handleItemClick} />
-          <Menu.Item name='login' active={activeItem === 'login'} onClick={this.handleItemClick} />
+          <Menu.Item>
+            <Button active={activeItem === 'sign up'} onClick={this.handleItemClick} primary>Sign up</Button>
+          </Menu.Item>
+          <Menu.Item>
+            <Button active={activeItem === 'login'} onClick={this.handleItemClick}>Log-in</Button>
+          </Menu.Item>
         </Menu.Menu>
       </Menu>
     )
