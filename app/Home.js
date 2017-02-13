@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Header from './Header'
+import Head from './Head'
 import MovieCard from './MovieCard'
 
 
-class App extends React.Component{
+class Home extends React.Component{
 
     constructor(props){
         super(props);
@@ -14,11 +14,11 @@ class App extends React.Component{
   render() {
     return (
       <div>
-        <Header></Header>
+        <Head></Head>
         <MovieCard></MovieCard>
     </div>
     )
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<Home />, document.getElementById('root'))
