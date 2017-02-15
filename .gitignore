@@ -1,5 +1,5 @@
 node_modules
-dist
+*bundle.js
 logs
 *.log
 .DS_Store*

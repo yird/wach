@@ -1,7 +1,7 @@
 import React from 'react'
 import { Label, Card, Item, Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
 import axios from 'axios'
-
+import Video from './Video'
 
 
 export default class MovieCard extends React.Component{
@@ -36,6 +36,7 @@ export default class MovieCard extends React.Component{
                             <Label>{res.release_date}</Label>
                           </Item.Meta>
                           <Item.Description>{res.overview}</Item.Description>
+                          <Video id={res.id}></Video>
                           <Item.Extra>Additional Details</Item.Extra>
                         </Item.Content>
                       </Item>
