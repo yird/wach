@@ -20,7 +20,7 @@ export default class Head extends React.Component{
     const { activeItem } = this.state
 
     return (
-      <Menu fixed='top' className='nav'>
+      <Menu className='nav'>
 
       <Menu.Item>
         <Button basic name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>Home</Button>
