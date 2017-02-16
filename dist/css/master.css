@@ -1,8 +1,7 @@
-.rapper {
-  margin: 1em;
+.container {
+  margin: 2em;
 }
-.film {
-  padding: 1.5em !important;
-  border: 1px solid lightslategrey !important;
-
+.movie-card {
+  padding: 1.2em !important;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2)  !important;
 }

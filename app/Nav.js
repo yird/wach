@@ -1,8 +1,8 @@
 import React from 'react'
-import { Sidebar, Segment, Input, Menu, Button, Image, Icon, Header } from 'semantic-ui-react'
+import { Input, Menu, Button, Image, Icon } from 'semantic-ui-react'
 
 
-export default class Head extends React.Component{
+export default class Nav extends React.Component{
 
     constructor(props){
         super(props);

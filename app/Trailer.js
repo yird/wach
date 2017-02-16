@@ -1,7 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import { Button, Icon} from 'semantic-ui-react'
-export default class Video extends React.Component{
+
+export default class Trailer extends React.Component{
 
     constructor(props){
         super(props);

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Label, Card, Item, Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
+import { Label, Item, Button, Image, Header } from 'semantic-ui-react'
 import axios from 'axios'
-import Video from './Video'
+import Trailer from './Trailer'
 
 
 export default class MovieCard extends React.Component{
@@ -24,11 +24,11 @@ export default class MovieCard extends React.Component{
 
     render() {
       return (
-        <div className='rapper'>
+        <div className='container'>
               <Item.Group>
                   {this.state.all.map(function(res){
                     return (
-                      <Item key={res.id} className='film'>
+                      <Item key={res.id} className='movie-card'>
                         <Item.Image src={`https://image.tmdb.org/t/p/w500${res.poster_path}`} />
                         <Item.Content>
                           <Item.Header as='a'>{res.title}</Item.Header>
@@ -36,7 +36,7 @@ export default class MovieCard extends React.Component{
                             <Label>{res.release_date}</Label>
                           </Item.Meta>
                           <Item.Description>{res.overview}</Item.Description>
-                          <Video id={res.id}></Video>
+                          <Trailer id={res.id}></Trailer>
                           <Item.Extra>Additional Details</Item.Extra>
                         </Item.Content>
                       </Item>
