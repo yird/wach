@@ -13,7 +13,7 @@ export default class Home extends React.Component{
   render() {
     return (
       <div>
-        <Nav></Nav>
+        <Nav name='home'></Nav>
         <MovieCard></MovieCard>
     </div>
     )

@@ -1,7 +1,27 @@
 .container {
+  padding-top: 4em;
   margin: 2em;
 }
 .movie-card {
   padding: 1.2em !important;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2)  !important;
+}
+.signup-container {
+  width: 40%;
+	height: 60%;
+
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+.signup-button {
+  width: 100%
+}
+.form{
+  border-radius: 5px;
+  padding: 2em;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
 }
