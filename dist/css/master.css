@@ -20,8 +20,12 @@
 .signup-button {
   width: 100%
 }
-.form{
-  border-radius: 5px;
-  padding: 2em;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+.form-container {
+  width: 100% !important;
+}
+.hidden-button {
+  top:40% !important;
+}
+.youtube-player {
+  width:100%;
 }

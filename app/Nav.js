@@ -1,7 +1,8 @@
 import React from 'react'
 import { Input, Menu, Button, Image, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-
+import Login from './Login'
+import Signup from './Signup'
 
 export default class Nav extends React.Component{
 
@@ -27,10 +28,10 @@ export default class Nav extends React.Component{
         </Menu.Item>
         <Menu.Menu position='right'>
           <Menu.Item>
-            <Link to='/signup'><Button basic active={activeItem === 'signup'} primary>Sign up</Button></Link>
+            <Signup></Signup>
           </Menu.Item>
           <Menu.Item>
-            <Link to='/login'><Button basic active={activeItem === 'login'}>Log in</Button></Link>
+            <Login></Login>
           </Menu.Item>
         </Menu.Menu>
       </Menu>

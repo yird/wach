@@ -36,7 +36,7 @@ export default class MovieCard extends React.Component{
                             <Label>{res.release_date}</Label>
                           </Item.Meta>
                           <Item.Description>{res.overview}</Item.Description>
-                          <Trailer id={res.id}></Trailer>
+                          <Trailer id={res}></Trailer>
                           <Item.Extra>Additional Details</Item.Extra>
                         </Item.Content>
                       </Item>
