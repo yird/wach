@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import Youtube from 'react-youtube'
-import { Button, Image, Modal, Icon} from 'semantic-ui-react'
+import { Embed, Button, Image, Modal, Icon} from 'semantic-ui-react'
 
 export default class Trailer extends React.Component{
 
@@ -22,28 +21,22 @@ export default class Trailer extends React.Component{
     }
 
   render() {
-    const opts = {
-      height: '460',
-      width: '720',
-      playerVars: {
-        autoplay: 1
-      }
-    }
     return (
      <Modal closeIcon='close' trigger={
        <Button basic color='blue' animated='fade'>
           <Button.Content visible>Trailer</Button.Content>
           <Button.Content hidden className='hidden-button'>
-            <Icon name='video play' size='large' />
+            <Icon name='video play' size='large' style={{fontSize:'1.8em'}} />
           </Button.Content>
         </Button>}>
        <Modal.Header style={{textAlign:'center'}}>{this.props.id.title}</Modal.Header>
-       <Modal.Content style={{textAlign:'center'}}>
-        <Youtube
-        className='youtube-player'
-        videoId={this.state.vid}
-        opts={opts}
-        />
+       <Modal.Content>
+           <Embed
+            active={true}
+            autoplay={true} 
+            id={this.state.vid}
+            source='youtube'
+          />
        </Modal.Content>
      </Modal>
     )

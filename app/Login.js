@@ -1,13 +1,49 @@
 import React from 'react'
 import { Button, Input, Image, Header, Icon, Label, Checkbox, Form, Modal } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 export default class Signup extends React.Component{
 
     constructor(props){
         super(props);
+        this.state = {
+          email: '',
+          password: '',
+
+          error: '',
+          loader: ''
+        }
+        this.validateLogin = this.validateLogin.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
+    validateLogin(e){
+      e.preventDefault();
+      if(this.state.email && this.state.password !== ''){
+        var loginInfo = {
+          email: this.state.email,
+          password: this.state.password
+        }
+        axios.post('/login', loginInfo)
+          .then((res) => {
+            console.log(res);
+          })
+
+
+      }else {
+        this.setState({
+          loader: <Icon color='red' size='large' name='warning circle'/>,
+          error: 'Fields cannot be empty'
+        })
+      }
+    }
+
+    onChange(e){
+      this.setState({
+        [e.target.name]: e.target.value
+      })
+    }
 
   render() {
     return (
@@ -16,18 +52,20 @@ export default class Signup extends React.Component{
         <Modal.Content image>
           <Image wrapped size='medium' src='http://semantic-ui.com/images/avatar2/large/rachel.png' />
           <Modal.Description className='form-container'>
-              <Form className='login-form'>
+              <Form className='login-form' onSubmit={this.validateLogin}>
                   <Form.Field>
                       <label>Email</label>
-                      <Input icon='at' iconPosition='left' type='email' placeholder='your@email.com' />
+                      <Input icon='at' value={this.state.email} iconPosition='left' type='email' onChange={this.onChange} placeholder='your@email.com' name='email'/>
                   </Form.Field>
 
                   <Form.Field>
                       <label>Password</label>
-                      <Input icon='key' iconPosition='left' type='email'type='password' placeholder='password' />
+                      <Input icon='key' value={this.state.password} iconPosition='left' type='email' onChange={this.onChange} type='password' placeholder='password' name='password'/>
                   </Form.Field>
+                    {this.state.loader}
+                    {this.state.error}
                   <Form.Field>
-                    <Button style={{marginTop:'5'}}  color='blue' icon='checkmark' labelPosition='right' content="Login" />
+                    <Button style={{marginTop:'5%'}}  color='blue' icon='checkmark' labelPosition='right' content="Login" />
                   </Form.Field>
               </Form>
           </Modal.Description>

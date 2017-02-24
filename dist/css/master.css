@@ -24,8 +24,11 @@
   width: 100% !important;
 }
 .hidden-button {
-  top:40% !important;
+  top:37% !important;
 }
 .youtube-player {
   width:100%;
+}
+.ui.inverted.dimmer {
+  background-color:rgba(0, 0, 0, 0.90) !important;
 }
