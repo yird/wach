@@ -40,9 +40,17 @@ export default class Signup extends React.Component{
             }
           
             //makes a post request to add the user to the database.
-             axios.post('/signup', userData)
-              .then(
-                window.location.replace('/')
+             axios.post('/api/signup', userData)
+              .then( res => {
+                if (!res.data){
+                  this.setState({
+                    loader: warning,
+                    error: 'Email is already in use!'
+                  })
+                } else {
+                  window.location.reload()
+                }
+              }
               ).catch(function(err){
                 console.log(err)
               })   

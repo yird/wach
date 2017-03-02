@@ -21,13 +21,20 @@ export default class Signup extends React.Component{
     validateLogin(e){
       e.preventDefault();
       if(this.state.email && this.state.password !== ''){
+
         var loginInfo = {
           email: this.state.email,
           password: this.state.password
         }
-        axios.post('/login', loginInfo)
-          .then((res) => {
-            console.log(res);
+
+        axios.post('/api/login', loginInfo)
+          .then(function(response){
+            window.location.reload()
+          }).catch((error) => {
+            this.setState({
+              loader: <Icon color='red' size='large' name='warning circle'/>,
+              error: 'Incorrect Email or Password'
+            })
           })
 
 

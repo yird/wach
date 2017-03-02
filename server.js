@@ -14,8 +14,7 @@ mongoose.connect('mongodb://localhost:27017/wachdb');
 var db = mongoose.connection;
 
 app.use(express.static(__dirname))
-
-//sessions
+app.use(bodyParser.json());
 app.use(session({
     secret: 'wach-c873-app-a4f8071f',
     resave: true,
@@ -26,26 +25,60 @@ app.get('/', function(req, res){
     res.sendFile(path.resolve(__dirname, 'index.html'));
 })
 
-app.use(bodyParser.json());
-//login
-app.post('/login', function(req, res){
-    if(req.body.email && req.body.password){
-        User.authenticate(req.body.email, req.body.password, function(error, user){
-            if (error || !user){
-                console.log('no user')
-                return next(err)
-            } else {
-                req.session.userId = user._id;
-                return 0;
-            }
-        })
-    }else { // something was left empty
-        return 'empty'
+app.get('/profile', function(req, res){
+    if (req.session.userId){
+        res.sendFile(path.resolve(__dirname, 'index.html'));
+    } else {
+        res.send('nope');
     }
 })
 
+app.post('/api/getuser', function(req, res){
+    User.findById(req.session.userId)
+    .exec(function(error, user){
+            var userInfo = {
+                name: user.name,
+                email: user.email
+            }
+            res.send(userInfo);
+    })
+})
+
+//logout
+app.post('/api/logout', function(req, res){
+    req.session.destroy();
+})
+
+//login
+app.post('/api/login', function(req, res){
+    if(req.body.email && req.body.password){
+        User.authenticate(req.body.email, req.body.password, function(error, user){
+            if (error || !user){
+                res.status(404)
+                .send('Not Found')
+            } else {
+                req.session.userId = user._id;
+                res.status(200)
+                .send('Log');
+            }
+        })
+    }else { // something was left empty
+        return 0;
+    }
+})
+
+app.post('/api/islogged', function(req, res){
+
+    if (req.session.userId){
+        res.send(true);
+    } else {
+        res.send(false);
+    }
+
+});
+
 //signup
-app.post('/signup', function(req, res){
+app.post('/api/signup', function(req, res){
 
     if (req.body.name &&
         req.body.email &&
@@ -53,8 +86,7 @@ app.post('/signup', function(req, res){
         req.body.confirmPassword
        ){
             if (req.body.password !== req.body.confirmPassword){
-                console.log('error 1')
-                return error;
+                res.send('passwords did not match')
             } else{ // everything is confirmed
                 
                 var userData = {
@@ -65,10 +97,12 @@ app.post('/signup', function(req, res){
                  // insert new users data into database.  
                 User.create(userData, function(error, user){
                     if (error){
-                        console.log('error4')
-                        return(error)
+                        console.log(error)
+                        res.send(false)
                     } else {
-                        console.log('noerror')
+                        req.session.userId = user._id;
+                        res.status(200)
+                        .send('Log');
                     }
                 });
             }

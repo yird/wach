@@ -32,3 +32,8 @@
 .ui.inverted.dimmer {
   background-color:rgba(0, 0, 0, 0.90) !important;
 }
+
+.well > div {
+  left: -3.3em !important;
+  margin: 1.5em 0 0 !important;
+}

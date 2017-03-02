@@ -1,40 +1,61 @@
 import React from 'react'
-import { Input, Menu, Button, Image, Icon } from 'semantic-ui-react'
+import { Input, Loader, Menu, Button, Image, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import Login from './Login'
 import Signup from './Signup'
+import Profile from './Profile'
+import axios from 'axios'
+
 
 export default class Nav extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = { activeItem: this.props.name }
+        this.state = { 
+          isLogged: this.props.isLogged,
+          loading: true
+        }
     }
 
+    componentWillReceiveProps(nextProps) {
+      this.setState({
+        isLogged: nextProps.isLogged,
+        loading: false
+      });
+    }
 
   render() {
-    const { activeItem } = this.state
-
+  let nav = null
+  if (this.state.loading === false){
+        let button = null
+        let button2 = null
+      if(this.state.isLogged === true){
+        button2 = <Menu.Item><Profile /></Menu.Item>
+      }
+      else {
+        button = <Menu.Item><Login /></Menu.Item>
+        button2 = <Menu.Item><Signup /></Menu.Item>
+      }
+      nav = (<Menu fixed='top' className='nav'>
+              <Menu.Item>
+                <Link to='/'><Button basic name='home' >Home</Button></Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Button basic name='favorites' >Favorites</Button>
+              </Menu.Item>
+              <Menu.Item>
+                <Input icon='search' placeholder='Search...' />
+              </Menu.Item>
+              <Menu.Menu position='right'>
+                  {button2}
+                  {button}
+              </Menu.Menu>
+            </Menu>)
+  }
     return (
-      <Menu fixed='top' className='nav'>
-        <Menu.Item>
-          <Link to='/'><Button basic name='home' active={activeItem === 'home'}>Home</Button></Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Button basic name='favorites' active={activeItem === 'favorites'}>Favorites</Button>
-        </Menu.Item>
-        <Menu.Item>
-          <Input icon='search' placeholder='Search...' />
-        </Menu.Item>
-        <Menu.Menu position='right'>
-          <Menu.Item>
-            <Signup></Signup>
-          </Menu.Item>
-          <Menu.Item>
-            <Login></Login>
-          </Menu.Item>
-        </Menu.Menu>
-      </Menu>
+      <div>
+        {nav}
+      </div>
     )
     }
 }
