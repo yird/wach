@@ -48,7 +48,7 @@ export default class Signup extends React.Component{
                     error: 'Email is already in use!'
                   })
                 } else {
-                  window.location.reload()
+                  window.location.reload();
                 }
               }
               ).catch(function(err){

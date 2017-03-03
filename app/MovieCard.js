@@ -1,7 +1,8 @@
 import React from 'react'
-import { Label, Item, Button, Image, Header } from 'semantic-ui-react'
+import { Label, Item, Icon, Button, Image, Header } from 'semantic-ui-react'
 import axios from 'axios'
 import Trailer from './Trailer'
+import Nav from './Nav'
 
 
 export default class MovieCard extends React.Component{
@@ -25,7 +26,7 @@ export default class MovieCard extends React.Component{
     render() {
       return (
         <div className='container'>
-              <Item.Group>
+              <Item.Group className='movie-group'>
                   {this.state.all.map(function(res){
                     return (
                       <Item key={res.id} className='movie-card'>
@@ -36,8 +37,13 @@ export default class MovieCard extends React.Component{
                             <Label>{res.release_date}</Label>
                           </Item.Meta>
                           <Item.Description>{res.overview}</Item.Description>
-                          <Trailer id={res}></Trailer>
                           <Item.Extra>Additional Details</Item.Extra>
+                          <Trailer id={res}></Trailer>
+                        </Item.Content>
+                        <Item.Content className='extra-card'>
+                          <Button basic color='red'><Icon className='extra-icons' name='add'></Icon></Button>
+                          <Button basic color='red'><Icon className='extra-icons' name='heart'></Icon></Button>
+                          <Button basic color='red'><Icon className='extra-icons' name='video camera'></Icon></Button>
                         </Item.Content>
                       </Item>
                     )

@@ -23,7 +23,7 @@ export default class Trailer extends React.Component{
   render() {
     return (
      <Modal closeIcon='close' trigger={
-       <Button basic color='blue' animated='fade'>
+       <Button animated='fade'>
           <Button.Content visible>Trailer</Button.Content>
           <Button.Content hidden className='hidden-button'>
             <Icon name='video play' size='large' style={{fontSize:'1.8em'}} />
