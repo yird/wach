@@ -24,24 +24,53 @@ app.use(session({
 app.get('/', function(req, res){
     res.sendFile(path.resolve(__dirname, 'index.html'));
 })
+app.get('/favorites', function(req, res){
+    res.sendFile(path.resolve(__dirname, 'index.html'));
+})
+app.get('/api/getFavorites', function(req, res){
+  if(req.session.userId){
+    User.findById(req.session.userId)
+    .exec(function(error, user){
+      if(error){console.log(error)}
+      res.send(user.favorites);
+    });
+  }else {
+    res.status(404).send(false);
+  }
+})
+app.put('/api/addFavorite', function(req, res){
+  User.findByIdAndUpdate(req.session.userId,
+    { "$addToSet": { favorites : req.body.id }},
+    function (err, managerparent) {
+        if (err) {console.log(error)}
+        }
+    );
+})
+app.put('/api/deleteFavorite', function(req, res){
+  User.update({_id:req.session.userId},
+    { "$pull": { favorites: req.body.id } },
+    { safe: true },
+    function (err, managerparent) {
+        if (err) {console.log(error)}
+        }
+    );
 
-app.get('/profile', function(req, res){
-    if (req.session.userId){
-        res.sendFile(path.resolve(__dirname, 'index.html'));
-    } else {
-        res.send('nope');
-    }
 })
 
 app.post('/api/getuser', function(req, res){
+  if(req.session.userId){
     User.findById(req.session.userId)
     .exec(function(error, user){
             var userInfo = {
                 name: user.name,
-                email: user.email
+                email: user.email,
+                favorites: user.favorites
             }
             res.send(userInfo);
     })
+  }else {
+    res.send(false);
+  }
 })
 
 //logout
@@ -88,13 +117,13 @@ app.post('/api/signup', function(req, res){
             if (req.body.password !== req.body.confirmPassword){
                 res.send('passwords did not match')
             } else{ // everything is confirmed
-                
+
                 var userData = {
                     name: req.body.name,
                     email: req.body.email,
                     password: req.body.password
                 }
-                 // insert new users data into database.  
+                 // insert new users data into database.
                 User.create(userData, function(error, user){
                     if (error){
                         console.log(error)

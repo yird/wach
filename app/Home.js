@@ -10,26 +10,13 @@ export default class Home extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {
-          isLogged: false
-        }
-    }
-
-    componentWillMount(){
-      axios.post('/api/islogged')
-      .then((response) => {
-          this.setState({
-            isLogged: response.data
-          })
-      })
     }
 
   render() {
     return (
       <div>
-        <Nav isLogged={this.state.isLogged} ></Nav>
         <MovieCard></MovieCard>
-    </div>
+      </div>
     )
   }
 }

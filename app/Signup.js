@@ -19,7 +19,7 @@ export default class Signup extends React.Component{
           loader: ''
         }
 
-     
+
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
     }
@@ -29,7 +29,7 @@ export default class Signup extends React.Component{
       const warning = <Icon color='red' size='large' name='warning circle'/>;
       if (this.state.name.length >= 3 && this.state.email !== ''){
         if (this.state.password.length >= 6){
-            
+
           if (this.state.password === this.state.confirmPassword ){
 
             const userData = {
@@ -38,7 +38,7 @@ export default class Signup extends React.Component{
               password: this.state.password,
               confirmPassword: this.state.confirmPassword
             }
-          
+
             //makes a post request to add the user to the database.
              axios.post('/api/signup', userData)
               .then( res => {
@@ -48,12 +48,12 @@ export default class Signup extends React.Component{
                     error: 'Email is already in use!'
                   })
                 } else {
-                  window.location.reload();
+                  window.location.replace('/');
                 }
               }
               ).catch(function(err){
                 console.log(err)
-              })   
+              })
 
           } else { // password did not match
               this.setState({
@@ -61,7 +61,7 @@ export default class Signup extends React.Component{
                 error: 'Passwords did not match'
               })
           }
-          
+
         } else { // password is < 6
             this.setState({
               loader: warning,
@@ -72,10 +72,10 @@ export default class Signup extends React.Component{
           this.setState({
               loader: warning,
               error: 'Invalid Name or Email'
-          })        
+          })
       }
     }
-    
+
 
     onChange(e){
       this.setState({

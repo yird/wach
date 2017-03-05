@@ -9,28 +9,18 @@ export default class Profile extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: null,
-            email: null
+            name: this.props.name,
+            email: this.props.email
         }
         this.handleLogout = this.handleLogout.bind(this)
     }
 
-    componentWillMount(){
-        axios.post('/api/getuser')
-        .then(res => {
-            this.setState({
-                name: res.data.name
-            })
-        })
-    }
     handleLogout(){
       axios.post('/api/logout');
-      window.location.reload();
+      window.location.replace('/');
     }
 
-
     render() {
-
 
         const trigger = (
             <span>
@@ -50,8 +40,8 @@ export default class Profile extends React.Component {
             ]
 
         return (
-            <Dropdown className='well' trigger={trigger} pointing='top right' options={options}/>
+            <Dropdown className='well' trigger={trigger} pointing='top right' options={options} />
         )
     }
-    
+
 }

@@ -11,28 +11,35 @@ export default class Nav extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = { 
+        this.state = {
+          loading: true,
           isLogged: this.props.isLogged,
-          loading: true
+          name: this.props.name,
+          email: this.props.email
         }
     }
 
     componentWillReceiveProps(nextProps) {
       this.setState({
         isLogged: nextProps.isLogged,
-        loading: false
+        loading: false,
+        name: nextProps.name,
+        email: nextProps.email
       });
     }
 
   render() {
   let nav = null
-  if (this.state.loading === false){
+  if (!this.state.loading){
         let button = null
         let button2 = null
-      if(this.state.isLogged === true){
-        button2 = <Menu.Item><Profile /></Menu.Item>
+        let open = null
+      if(this.state.isLogged){
+        button2 = <Menu.Item><Profile name={this.state.name} email={this.state.email}/></Menu.Item>
+        open = <Link to='/favorites'><Button basic>My List</Button></Link>
       }
       else {
+        open = <Login name='My List'/>
         button = <Menu.Item><Login /></Menu.Item>
         button2 = <Menu.Item><Signup /></Menu.Item>
       }
@@ -41,7 +48,7 @@ export default class Nav extends React.Component{
                 <Link to='/'><Button basic name='home' >Home</Button></Link>
               </Menu.Item>
               <Menu.Item>
-                <Button basic name='favorites' >Favorites</Button>
+                {open}
               </Menu.Item>
               <Menu.Item>
                 <Input icon='search' placeholder='Search...' />

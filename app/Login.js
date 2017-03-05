@@ -14,6 +14,7 @@ export default class Signup extends React.Component{
           error: '',
           loader: ''
         }
+        this.name = this.props.name || 'Login'
         this.validateLogin = this.validateLogin.bind(this);
         this.onChange = this.onChange.bind(this);
     }
@@ -28,9 +29,14 @@ export default class Signup extends React.Component{
         }
 
         axios.post('/api/login', loginInfo)
-          .then(function(response){
-            window.location.reload()
+          .then((response) => {
+            if(this.name ==='My List'){
+              window.location.replace('/favorites')
+            } else {
+              window.location.replace('/')
+            }
           }).catch((error) => {
+            console.log(error);
             this.setState({
               loader: <Icon color='red' size='large' name='warning circle'/>,
               error: 'Incorrect Email or Password'
@@ -54,7 +60,7 @@ export default class Signup extends React.Component{
 
   render() {
     return (
-      <Modal trigger={<Button basic>Login</Button>} size='small' closeIcon='close'>
+      <Modal trigger={<Button basic>{this.name}</Button>} size='small' closeIcon='close'>
         <Modal.Header style={{textAlign:'center'}}>Login</Modal.Header>
         <Modal.Content image>
           <Image wrapped size='medium' src='http://semantic-ui.com/images/avatar2/large/rachel.png' />

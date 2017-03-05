@@ -22,8 +22,8 @@ export default class Trailer extends React.Component{
 
   render() {
     return (
-     <Modal closeIcon='close' trigger={
-       <Button animated='fade'>
+     <Modal trigger={
+       <Button basic color='grey' animated='fade'>
           <Button.Content visible>Trailer</Button.Content>
           <Button.Content hidden className='hidden-button'>
             <Icon name='video play' size='large' style={{fontSize:'1.8em'}} />
@@ -33,7 +33,7 @@ export default class Trailer extends React.Component{
        <Modal.Content>
            <Embed
             active={true}
-            autoplay={true} 
+            autoplay={true}
             id={this.state.vid}
             source='youtube'
           />
