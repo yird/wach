@@ -79,22 +79,20 @@ app.get('*', function(req, res){
 // })
 //
 // //login
-// app.post('/api/login', function(req, res){
-//     if(req.body.email && req.body.password){
-//         User.authenticate(req.body.email, req.body.password, function(error, user){
-//             if (error || !user){
-//                 res.status(404)
-//                 .send('Not Found')
-//             } else {
-//                 req.session.userId = user._id;
-//                 res.status(200)
-//                 .send('Log');
-//             }
-//         })
-//     }else { // something was left empty
-//         return 0;
-//     }
-// })
+app.post('/api/loginUser', function(req, res){
+    if(req.body.email && req.body.password){
+        User.authenticate(req.body.email, req.body.password, function(error, user){
+            if (error || !user){
+                res.status(404).send()
+            } else {
+                req.session.userId = user._id;
+                res.status(200).send('Log');
+            }
+        })
+    }else { // something was left empty
+        return 0;
+    }
+})
 //
 // app.post('/api/islogged', function(req, res){
 //

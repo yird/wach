@@ -1,31 +1,35 @@
+import React from 'react'
 import { connect } from 'react-redux'
-import MyList from '../Components/MyList'
-import { fetchMovie, fetchPopular, playTrailer} from '../Actions/actions'
+import { fetchMovie } from '../actions/Actions'
+import { Item } from 'semantic-ui-react'
+import MovieCard from '../components/MovieCard'
+import Trailer from '../components/Trailer'
+
+const MyList = ({fetchMovie, mylist}) => {
+
+  mylist.length === 0 && fetchMovie(mylist)
+  return (
+      <div className='container'>
+            <Item.Group className='movie-group'>
+                {mylist.map( movie => <MovieCard key={movie.id} movie={movie}/>)}
+            </Item.Group>
+      </div>
+    )
+}
+
 
 
 const mapStateToProps = (state) => {
   return {
-    mylistIds: state.userReducer.mylistIds,
-    movieData: state.movieReducer
+    mylist: state.mainReducer.mylist
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPopular: () => {
-      dispatch(fetchPopular())
-    },
-    fetchMovie: (mylistIds) => {
-      dispatch(fetchMovie(mylistIds))
-    },
-    playTrailer: (id) => {
-      dispatch(playTrailer(id))
+    fetchMovie: (mylist) => {
+      dispatch(fetchMovie(mylist))
     }
   }
 }
 
-const MyListContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MyList)
-
-export default MyListContainer
+export default connect(mapStateToProps,mapDispatchToProps)(MyList)

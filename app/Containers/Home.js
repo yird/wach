@@ -1,11 +1,28 @@
+import React from 'react'
 import { connect } from 'react-redux'
-import Home from '../Components/Home'
-import { fetchPopular, playTrailer} from '../Actions/actions'
+import { fetchPopular, playTrailer} from '../actions/Actions'
+import MovieCard from '../components/MovieCard'
+import {Item} from 'semantic-ui-react'
 
+const Home = ({popular, fetchPopular}) => {
+
+  popular.length === 0 && fetchPopular()
+  return (
+      <div className='container'>
+          <Item.Group className='movie-group'>
+              {popular.map(function(movie) {
+                  return (
+                      <MovieCard key={movie.id} movie={movie} />
+                  )
+              })}
+          </Item.Group>
+      </div>
+  )
+}
 
 const mapStateToProps = (state) => {
   return {
-    movieData: state.movieReducer
+    popular: state.mainReducer.popular
   }
 }
 
@@ -13,16 +30,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchPopular: () => {
       dispatch(fetchPopular())
-    },
-    playTrailer: (id) => {
-      dispatch(playTrailer(id))
     }
   }
 }
 
-const HomeContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Home)
-
-export default HomeContainer
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

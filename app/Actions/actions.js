@@ -9,10 +9,11 @@ export const fetchPopular = () => {
     }
 }
 
-export const fetchMovie = (mylistIds) => {
+export const fetchMovie = (mylist) => {
+    mylist = [14564,135397,127380,284052,259316]
     return {
         type: 'FETCH_MOVIE',
-        payload: axios.all(mylistIds.map(each => {
+        payload: axios.all(mylist.map(each => {
             return axios.get(`https://api.themoviedb.org/3/movie/${each}?api_key=${api_key}`)
                 .then(response => {
                     return response.data
@@ -21,10 +22,13 @@ export const fetchMovie = (mylistIds) => {
     }
 }
 
-export const playTrailer = (id) => {
+export const loginUser = (userInfo) => {
     return {
-        type: 'FETCH_TRAILER',
-        payload: axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${api_key}`)
+        type: 'LOGIN_USER',
+        payload: axios.post('/api/loginUser')
+          .then(response => {
+            return response
+          })
     }
 }
 
