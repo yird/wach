@@ -2,15 +2,21 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchPopular, playTrailer} from '../actions/Actions'
 import MovieCard from '../components/MovieCard'
-import {Item} from 'semantic-ui-react'
+import {Item, Loader} from 'semantic-ui-react'
 
-const Home = ({popular, fetchPopular}) => {
+const Home = ({data, fetchPopular}) => {
 
-  popular.length === 0 && fetchPopular()
+  if(!data.popular && !data.loading){
+    fetchPopular()
+    return <Loader active />
+  }
+
+  if(data.loading) return <Loader active />
+
   return (
       <div className='container'>
           <Item.Group className='movie-group'>
-              {popular.map(function(movie) {
+              {data.popular.map(function(movie) {
                   return (
                       <MovieCard key={movie.id} movie={movie} />
                   )
@@ -22,7 +28,7 @@ const Home = ({popular, fetchPopular}) => {
 
 const mapStateToProps = (state) => {
   return {
-    popular: state.mainReducer.popular
+    data: state.mainReducer
   }
 }
 

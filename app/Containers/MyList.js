@@ -1,33 +1,35 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchMovie } from '../actions/Actions'
-import { Item } from 'semantic-ui-react'
+import { Item, Loader } from 'semantic-ui-react'
 import MovieCard from '../components/MovieCard'
-import Trailer from '../components/Trailer'
 
-const MyList = ({fetchMovie, mylist}) => {
+const MyList = ({fetchList, data}) => {
+  console.log(sessionStorage)
+  if(!data.mylist && !data.loading) {
+    fetchList(data.user.mylist, 'FETCH_MYLIST')
+    return <Loader active />
+  }
 
-  mylist.length === 0 && fetchMovie(mylist)
+  if(data.loading) return <Loader active />
   return (
       <div className='container'>
             <Item.Group className='movie-group'>
-                {mylist.map( movie => <MovieCard key={movie.id} movie={movie}/>)}
+                {data.mylist.map( movie => <MovieCard key={movie.id} movie={movie}/>)}
             </Item.Group>
       </div>
     )
 }
 
-
-
 const mapStateToProps = (state) => {
   return {
-    mylist: state.mainReducer.mylist
+    data: state.mainReducer
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchMovie: (mylist) => {
-      dispatch(fetchMovie(mylist))
+    fetchList: (mylistIds, type) => {
+      dispatch(fetchMovie(mylistIds, type))
     }
   }
 }

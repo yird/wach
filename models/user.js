@@ -17,7 +17,13 @@ var UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    favorites: {
+    mylist: {
+        type: Array
+    },
+    loved: {
+        type: Array
+    },
+    watched: {
         type: Array
     }
 });

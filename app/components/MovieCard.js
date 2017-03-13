@@ -1,5 +1,6 @@
 import React from 'react'
 import Trailer from './Trailer'
+import CardTasks from '../containers/CardTasks'
 import {Label, Item} from 'semantic-ui-react'
 // import CardTasks from './CardTasks'
 
@@ -15,5 +16,6 @@ export default ({movie}) => (
               <Item.Extra>Additional Details</Item.Extra>
               <Trailer title={movie.title} id={movie.id}></Trailer>
           </Item.Content>
+          <CardTasks id={movie.id}/>
       </Item>
   )

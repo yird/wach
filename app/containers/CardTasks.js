@@ -1,9 +1,11 @@
 import React from 'react'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import { addToMyList } from '../actions/Actions'
 import {Item, Button, Icon} from 'semantic-ui-react'
+import axios from 'axios'
 
 
-export default class CardTasks extends React.Component {
+class CardTasks extends React.Component {
 
 
   constructor(props) {
@@ -70,3 +72,22 @@ export default class CardTasks extends React.Component {
     )
   }
 }
+
+
+
+const mapStateToProps = (state) => {
+  return {
+    data: state.mainReducer.user
+  }
+}
+
+const mapDispatchToProps = (Dispatch) => {
+  return {
+    addToMyList: (movie) => {
+      dispatch(addToMyList(movie))
+    }
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardTasks)

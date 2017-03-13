@@ -24,6 +24,7 @@
     "body-parser": "^1.16.1",
     "express": "^4.14.1",
     "express-session": "^1.15.1",
+    "lodash": "^4.17.4",
     "mongoose": "^4.8.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -31,6 +32,7 @@
     "react-router": "^4.0.0-beta.7",
     "react-router-dom": "^4.0.0-beta.7",
     "redux-promise-middleware": "^4.2.0",
+    "redux-thunk": "^2.2.0",
     "semantic-ui-react": "^0.64.7"
   },
   "devDependencies": {
