@@ -1,2 +1,2 @@
 # wach
-the wach app
+the wach app 2.0
