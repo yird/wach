@@ -58,19 +58,19 @@ app.put('/api/deleteFavorite', function(req, res){
 
 })
 
-app.post('/api/getuser', function(req, res){
+app.post('/api/getCurrentUser', function(req, res){
   if(req.session.userId){
     User.findById(req.session.userId)
     .exec(function(error, user){
             var userInfo = {
                 name: user.name,
                 email: user.email,
-                favorites: user.favorites
+                mylist: user.favorites
             }
             res.send(userInfo);
     })
   }else {
-    res.send(false);
+    res.status(404).send(false);
   }
 })
 

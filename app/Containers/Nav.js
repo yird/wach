@@ -7,24 +7,13 @@ import Signup from '../components/Signup'
 import Profile from '../components/Profile'
 import { isLogged } from '../actions/Actions'
 
-class Nav extends React.Component {
+const Nav = ({logged}) => {
 
-  constructor(props) {
-    super(props)
-  }
-
-
-  componentWillMount(){
-    this.props.isLogged
-  }
-
-
-  render(){
    let button = null
    let button2 = null
    let mylist = null
 
-   if(this.props.logged){
+   if(logged){
      button2 = <Menu.Item><Profile /></Menu.Item>
      mylist = <Link to='/mylist'><Button basic>My List</Button></Link>
    } else {
@@ -45,7 +34,6 @@ class Nav extends React.Component {
          </Menu.Menu>
        </Menu>
     )
-  }
 }
 
 const mapStateToProps = (state) => {
@@ -53,11 +41,5 @@ const mapStateToProps = (state) => {
     logged: state.mainReducer.logged
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    isLogged: dispatch(isLogged())
 
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Nav)
+export default connect(mapStateToProps)(Nav)

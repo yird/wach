@@ -1,40 +1,71 @@
 
 const defaultState = {
+  fetching: null,
+  logged: false,
+  popular: {
+    loading: null,
+    movies: null
+  },
+  mylist: {
+    loading: null,
+    movies: null
+  },
+  user: {
+    name: '',
+    email: '',
+    mylist: null,
+    loved: [],
+    watched: []
+  },
+  loading: null,
+  error: null
 }
 
 const mainReducer = (state = defaultState, action) => {
 
   switch (action.type) {
+
+    //INIT
+    case 'FETCH_INIT_PENDING':
+      return { ...state, fetching:true}
+      break;
+    case 'FETCH_INIT_FULFILLED':
+      return { ...state, fetching: false, logged: true, user: action.payload }
+      break;
+    case 'FETCH_INIT_REJECTED':
+      return { ...state,  fetching:false, error: true }
+      break;
   // POPULAR
       case 'FETCH_POPULAR_PENDING':
-        return { ...state, loading: true }
+        return { ...state, popular: {...state.popular, loading: true } }
         break;
       case 'FETCH_POPULAR_FULFILLED':
-        return { ...state, loading: false, popular: action.payload.data.results }
+        return { ...state, popular:{...state.popular, movies:action.payload, loading: false } }
         break;
       case 'FETCH_POPULAR_REJECTED':
-        return { ...state, loading: false, error: action.payload }
+        return { ...state, popular:{...state.popular, loading: false } }
         break;
+    // MYLIST
+        case 'FETCH_MYLIST_PENDING':
+          return { ...state, mylist:{...state.mylist, loading:true }}
+          break;
+        case 'FETCH_MYLIST_FULFILLED':
+          return { ...state, loading:false, mylist:{...state.mylist, movies:action.payload, loading:false } }
+          break;
+        case 'FETCH_MYLIST_REJECTED':
+          return { ...state, mylist:{...state.mylist, loading:false } }
+          break;
   // LOGIN
       case 'LOGIN_USER_PENDING':
         return { ...state, user:{...state.user, loading: true } }
         break;
       case 'LOGIN_USER_FULFILLED':
-        return { ...state, logged: true, user:{...action.payload, loading: false} }
+        return { ...state, logged: true, error: false, user:{...action.payload, loading: false} }
         break;
       case 'LOGIN_USER_REJECTED':
         return { ...state, user:{...state.user, error: true, loading: false } }
         break;
-  // MYLIST
-      case 'FETCH_MYLIST_PENDING':
-        return { ...state, loading:true}
-        break;
-      case 'FETCH_MYLIST_FULFILLED':
-        return { ...state, loading:false, mylist:action.payload }
-        break;
-      case 'FETCH_MYLIST_REJECTED':
-        return { ...state, loading:false, error: action.payload }
-        break;
+
   // LOVED
       case 'FETCH_LOVED_PENDING':
         return { ...state, loading: true }

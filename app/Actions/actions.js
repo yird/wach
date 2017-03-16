@@ -2,10 +2,23 @@ import axios from 'axios'
 
 const api_key = 'd70794e4c63eb2c23e3e2a0cfeaa9534';
 
+
+export const getInitState = () => {
+    return {
+        type: 'FETCH_INIT',
+        payload: axios.post('/api/getCurrentUser')
+        .then( res => {
+          return res.data
+        })
+    }
+}
 export const fetchPopular = () => {
     return {
         type: 'FETCH_POPULAR',
         payload: axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}`)
+          .then(res => {
+            return res.data.results
+          })
     }
 }
 

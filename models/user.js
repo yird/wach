@@ -17,6 +17,9 @@ var UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    favorites: {
+      type: Array
+    },
     mylist: {
         type: Array
     },

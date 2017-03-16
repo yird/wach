@@ -14,7 +14,6 @@ export default ({movie}) => (
               </Item.Meta>
               <Item.Description>{movie.overview}</Item.Description>
               <Item.Extra>Additional Details</Item.Extra>
-              <Trailer title={movie.title} id={movie.id}></Trailer>
           </Item.Content>
           <CardTasks id={movie.id}/>
       </Item>
