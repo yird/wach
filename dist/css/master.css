@@ -28,6 +28,10 @@
 .signup-button {
   width: 100%
 }
+.login-form {
+  width: 50%;
+  margin: auto;
+}
 .form-container {
   width: 100% !important;
 }
