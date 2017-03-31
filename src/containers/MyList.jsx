@@ -1,8 +1,7 @@
 import React from 'react'
-import { Label, Item } from 'semantic-ui-react'
+import MovieCard from '../components/MovieCard'
+import { Item } from 'semantic-ui-react'
 import axios from 'axios'
-import Trailer from '../components/Trailer'
-import CardExtras from '../components/CardExtras'
 
 export default class MyList extends React.Component {
   constructor (props) {
@@ -64,24 +63,11 @@ export default class MyList extends React.Component {
     return (
       <div className='container'>
         <Item.Group className='movie-group'>
-          {this.state.favorites.map(function (res) {
+          {this.state.favorites.map( (movie) => {
             return (
-              <Item key={res.id} className='movie-card'>
-                <Item.Image src={`https://image.tmdb.org/t/p/w500${res.poster_path}`} />
-                <Item.Content>
-                  <Item.Header as='a'>{res.title}</Item.Header>
-                  <Item.Meta>
-                    <Label >{res.release_date}</Label>
-                    <Label >{res.genres[0].name}</Label>
-                  </Item.Meta>
-                  <Item.Description>{res.overview}</Item.Description>
-                  <Item.Extra>Additional Details</Item.Extra>
-                  <Trailer id={res} />
-                </Item.Content>
-                <CardExtras handleAddorDelete={this.handleAddorDelete} id={res.id} />
-              </Item>
+              <MovieCard key={movie.id} movie={movie}/>
             )
-          }, this)}
+          })}
         </Item.Group>
       </div>
     )

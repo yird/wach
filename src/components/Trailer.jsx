@@ -11,7 +11,7 @@ export default class Trailer extends React.Component {
   }
   componentDidMount () {
     var api_key = 'd70794e4c63eb2c23e3e2a0cfeaa9534'
-    axios.get(`https://api.themoviedb.org/3/movie/${this.props.id.id}/videos?api_key=${api_key}`)
+    axios.get(`https://api.themoviedb.org/3/movie/${this.props.movie.id}/videos?api_key=${api_key}`)
         .then((res) => {
           this.setState({
             vid: res.data.results[0].key
@@ -28,7 +28,7 @@ export default class Trailer extends React.Component {
             <Icon name='video play' size='large' style={{fontSize: '1.8em'}} />
           </Button.Content>
         </Button>}>
-        <Modal.Header style={{textAlign: 'center'}}>{this.props.id.title}</Modal.Header>
+        <Modal.Header style={{textAlign: 'center'}}>{this.props.movie.title}</Modal.Header>
         <Modal.Content>
           <Embed
             active

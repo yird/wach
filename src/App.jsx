@@ -1,10 +1,11 @@
 import React from 'react'
+import { Provider } from 'react-redux'
+import store from './store'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Home from './containers/Home'
 import MyList from './containers/MyList'
 import Nav from './components/Nav'
-import MovieCard from './components/MovieCard'
 import axios from 'axios'
 
 class App extends React.Component {
@@ -17,7 +18,7 @@ class App extends React.Component {
     }
   }
   componentWillMount () {
-    axios.post('/api/getuser')
+    axios.post('/auth/getuser')
       .then(res => {
         if (res.data) {
           this.setState({
@@ -35,13 +36,15 @@ class App extends React.Component {
 
   render () {
     return (
-      <Router>
-        <div>
-          <Nav isLogged={this.state.isLogged} name={this.state.name} email={this.state.email} />
-          <Route exact path='/' component={MovieCard} />
-          <Route path='/mylist' component={MyList} />
-        </div>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <div>
+            <Nav isLogged={this.state.isLogged} name={this.state.name} email={this.state.email} />
+            <Route exact path='/' component={Home} />
+            <Route path='/mylist' component={MyList} />
+          </div>
+        </Router>
+      </Provider>
     )
   }
 }

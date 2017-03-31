@@ -25,10 +25,10 @@ export default class Signup extends React.Component {
         password: this.state.password
       }
 
-      axios.post('/api/login', loginInfo)
+      axios.post('/auth/login', loginInfo)
           .then((response) => {
             if (this.name === 'My List') {
-              window.location.replace('/favorites')
+              window.location.replace('/mylist')
             } else {
               window.location.replace('/')
             }
