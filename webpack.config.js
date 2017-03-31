@@ -1,24 +1,24 @@
-var path = require('path');
+var path = require('path')
 
 module.exports = {
-  entry: './app/App.js',
+  entry: './src/App.jsx',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist/js')
   },
   resolve: {
-    extensions: ['.js', '.json']
+    extensions: ['.js', '.jsx', '.json']
   },
   stats: {
-      colors: true,
-      reasons: true,
-      chunks: true
+    colors: true,
+    reasons: true,
+    chunks: true
   },
   module: {
-      rules: [{
-              test: /\.js$/,
-              exclude: /node-modules/,
-              loader: 'babel-loader'
-            }]
+    rules: [{
+      test: /.jsx?$/,
+      exclude: /node-modules/,
+      loader: 'babel-loader'
+    }]
   }
-};
+}
