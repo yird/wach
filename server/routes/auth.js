@@ -14,7 +14,7 @@ router.post('/getuser', function (req, res) {
       res.send(userInfo)
     })
   } else {
-    res.send(false)
+    res.status(404).send()
   }
 })
 

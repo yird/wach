@@ -5,33 +5,12 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Home from './containers/Home'
 import MyList from './containers/MyList'
-import Nav from './components/Nav'
-import axios from 'axios'
+import Nav from './containers/Nav'
+import { getUser } from './actions/userAction'
 
 class App extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      isLogged: false,
-      name: '',
-      email: ''
-    }
-  }
   componentWillMount () {
-    axios.post('/auth/getuser')
-      .then(res => {
-        if (res.data) {
-          this.setState({
-            isLogged: true,
-            name: res.data.name,
-            email: res.data.email
-          })
-        } else {
-          this.setState({
-            isLogged: false
-          })
-        }
-      })
+    store.dispatch(getUser())
   }
 
   render () {
@@ -39,7 +18,7 @@ class App extends React.Component {
       <Provider store={store}>
         <Router>
           <div>
-            <Nav isLogged={this.state.isLogged} name={this.state.name} email={this.state.email} />
+            <Nav />
             <Route exact path='/' component={Home} />
             <Route path='/mylist' component={MyList} />
           </div>
@@ -48,5 +27,4 @@ class App extends React.Component {
     )
   }
 }
-
 ReactDOM.render(<App />, document.getElementById('App'))

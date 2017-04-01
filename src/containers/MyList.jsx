@@ -63,9 +63,9 @@ export default class MyList extends React.Component {
     return (
       <div className='container'>
         <Item.Group className='movie-group'>
-          {this.state.favorites.map( (movie) => {
+          {this.state.favorites.map((movie) => {
             return (
-              <MovieCard key={movie.id} movie={movie}/>
+              <MovieCard key={movie.id} movie={movie} />
             )
           })}
         </Item.Group>

@@ -65,10 +65,9 @@ export default class Signup extends React.Component {
                 <label>Email</label>
                 <Input icon='at' value={this.state.email} iconPosition='left' type='email' onChange={this.onChange} placeholder='your@email.com' name='email' />
               </Form.Field>
-
               <Form.Field>
                 <label>Password</label>
-                <Input icon='key' value={this.state.password} iconPosition='left' type='email' onChange={this.onChange} type='password' placeholder='password' name='password' />
+                <Input icon='key' value={this.state.password} iconPosition='left' type='password' onChange={this.onChange} placeholder='password' name='password' />
               </Form.Field>
               {this.state.loader}
               {this.state.error}

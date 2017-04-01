@@ -13,7 +13,7 @@ export default class Profile extends React.Component {
   }
 
   handleLogout () {
-    axios.post('/auth/logout')
+    axios.post('/api/logout')
     window.location.replace('/')
   }
 
