@@ -1,19 +1,13 @@
 import React from 'react'
-import { Provider } from 'react-redux'
 import store from './store'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Home from './containers/Home'
 import MyList from './containers/MyList'
 import Nav from './containers/Nav'
-import { getUser } from './actions/userAction'
 
-class App extends React.Component {
-  componentWillMount () {
-    store.dispatch(getUser())
-  }
-
-  render () {
+const App = () => {
     return (
       <Provider store={store}>
         <Router>
@@ -25,6 +19,5 @@ class App extends React.Component {
         </Router>
       </Provider>
     )
-  }
 }
 ReactDOM.render(<App />, document.getElementById('App'))

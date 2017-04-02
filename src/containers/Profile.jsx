@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Icon, Dropdown } from 'semantic-ui-react'
-import { logout } from '../actions/userAction'
+import { logout } from '../actions/userActions'
 
 const Profile = ({User, Logout}) => {
   return (
