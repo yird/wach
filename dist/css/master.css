@@ -56,3 +56,6 @@
 .extra-icons{
   margin: 0 !important;
 }
+.dropdownHeader {
+  margin-bottom: -.5rem !important;
+}

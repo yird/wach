@@ -19,3 +19,7 @@ const setUser = (user) => {
     payload: user
   }
 }
+
+export const logout = () => {
+  axios.post('/auth/logout').then(location.reload(true))
+}

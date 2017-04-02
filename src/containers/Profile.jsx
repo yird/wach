@@ -1,42 +1,43 @@
 import React from 'react'
-import axios from 'axios'
-import { Image, Dropdown } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { Icon, Dropdown } from 'semantic-ui-react'
+import { logout } from '../actions/userAction'
 
-export default class Profile extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      name: this.props.name,
-      email: this.props.email
-    }
-    this.handleLogout = this.handleLogout.bind(this)
-  }
-
-  handleLogout () {
-    axios.post('/api/logout')
-    window.location.replace('/')
-  }
-
-  render () {
-    const trigger = (
-      <span>
-        <Image src='http://semantic-ui.com/images/avatar2/large/rachel.png' avatar /> {this.state.name}
-      </span>
-            )
-
-    const options = [
-      {
-        key: 'user',
-        text: <span>Signed in as <strong>{this.state.name}</strong></span>,
-        disabled: true
-      },
-            { key: 'profile', selected: false, icon: 'user', text: 'Profile' },
-            { key: 'settings', icon: 'settings', text: 'Settings' },
-            { key: 'sign-out', icon: 'sign out', text: 'Sign Out', onClick: this.handleLogout}
-    ]
-
-    return (
-      <Dropdown className='well' trigger={trigger} pointing='top right' options={options} />
-    )
+const Profile = ({User, Logout}) => {
+  return (
+    <Dropdown icon='user' text={User.name} floating labeled button basic className='icon'>
+      <Dropdown.Menu>
+        <Dropdown.Item disabled className='dropdownHeader'>
+          <Icon name='tags' />
+            Signed in as <strong>{User.name}</strong>
+        </Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item>
+          <Icon name='user' />
+            Profile
+          </Dropdown.Item>
+        <Dropdown.Item>
+          <Icon name='settings' />
+            Settings
+          </Dropdown.Item>
+        <Dropdown.Item onClick={Logout}>
+          <Icon name='sign out' />
+            Logout
+          </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  )
+}
+const mapStateToProps = (state) => {
+  return {
+    User: state.userReducer.user
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    Logout: () => {
+      dispatch(logout)
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)
