@@ -15,7 +15,7 @@ export default (state = initState, action) => {
     case 'GET_POPULAR_PENDING':
       return { ...state, popular: { loading: true } }
     case 'SET_POPULAR':
-      return { ...state, popular: {...state.popular, movies: action.payload, loading:false} }
+      return { ...state, popular: {...state.popular, movies: action.payload, loading: false} }
     case 'GET_POPULAR_REJECTED':
       return { ...state, popular: { loading: false } }
     default: return state

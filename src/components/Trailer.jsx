@@ -11,7 +11,7 @@ export default class Trailer extends React.Component {
   }
   componentDidMount () {
     var api_key = 'd70794e4c63eb2c23e3e2a0cfeaa9534'
-    axios.get(`https://api.themoviedb.org/3/movie/${this.props.movie.id}/videos?api_key=${api_key}`)
+    axios.get(`https://api.themoviedb.org/3/movie/${this.props.movie.id}/videos?api_key=${api_key}&language=en-US`)
         .then((res) => {
           this.setState({
             vid: res.data.results[0].key

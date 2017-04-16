@@ -14,16 +14,9 @@
   margin-bottom: 3em !important;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2)  !important;
 }
-.signup-container {
-  width: 40%;
-	height: 60%;
-
-	position: absolute;
-	top:0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
+.signup-form {
+  width:80%;
+  margin:auto;
 }
 .signup-button {
   width: 100%
@@ -40,9 +33,8 @@
 .ui.inverted.dimmer {
   background-color:rgba(0, 0, 0, 0.90) !important;
 }
-.well > div {
-  left: -3.3em !important;
-  margin: 1.5em 0 0 !important;
+.card-content {
+  width:100% !important;
 }
 .extra-card {
   margin: auto !important;
@@ -58,4 +50,7 @@
 }
 .dropdownHeader {
   margin-bottom: -.5rem !important;
+}
+.auth-avatar > img {
+  border-radius: 5%;
 }

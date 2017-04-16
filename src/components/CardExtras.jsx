@@ -1,8 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
 import {Item, Button, Icon} from 'semantic-ui-react'
 
-export default class CardExtras extends React.Component {
+class CardExtras extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -14,6 +15,7 @@ export default class CardExtras extends React.Component {
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount () {
+    if(this.props.Authenticated) {
     axios.get('/api/getFavorites')
     .then(res => {
       var isValue = res.data.includes(this.state.id)
@@ -21,6 +23,7 @@ export default class CardExtras extends React.Component {
         added: isValue
       })
     })
+    }
   }
 
   handleClick (e, {name}) {
@@ -42,6 +45,28 @@ export default class CardExtras extends React.Component {
         watched: !this.state.watched
       })
     }
+  }
+    handleAddorDelete (id, status) {
+    id = {id: id}
+
+    if (!status) {
+      axios.put('/api/addFavorite', id)
+        .then(
+          axios.get('/api/getFavorites')
+          .then(res => {
+            this.getApi(res.data)
+          })
+        )
+    } else {
+      axios.put('/api/deleteFavorite', id)
+          .then(
+            axios.get('/api/getFavorites')
+            .then(res => {
+              this.getApi(res.data)
+            })
+          )
+    }
+    return true
   }
 
   render () {
@@ -68,3 +93,11 @@ export default class CardExtras extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    Authenticated: state.userReducer.authenticated
+  }
+}
+
+export default connect(mapStateToProps)(CardExtras)

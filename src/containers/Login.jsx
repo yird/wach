@@ -58,7 +58,7 @@ export default class Signup extends React.Component {
       <Modal trigger={<Button basic>{this.name}</Button>} size='small' closeIcon='close'>
         <Modal.Header style={{textAlign: 'center'}}>Login</Modal.Header>
         <Modal.Content image>
-          <Image wrapped size='medium' src='http://semantic-ui.com/images/avatar2/large/rachel.png' />
+          <Image className='auth-avatar' wrapped size='medium' src='/images/avatar.png' />
           <Modal.Description className='form-container'>
             <Form className='login-form' onSubmit={this.validateLogin}>
               <Form.Field>

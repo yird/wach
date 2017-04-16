@@ -17,7 +17,7 @@ export const setInitState = () => {
       })
     // Get popular movies
     dispatch({ type: 'GET_POPULAR_PENDING'})
-    axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`)
+    axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`)
         .then((res) => {
           dispatch({
             type: 'SET_POPULAR',
@@ -25,11 +25,11 @@ export const setInitState = () => {
           })
         })
       .catch(res => {
-        dispatch({type:'SET_POPULAR_REJECTED'})
+        dispatch({type: 'SET_POPULAR_REJECTED'})
       })
   }
 }
 
 export const logout = () => {
-  axios.post('/auth/logout').then(location.reload(true))
+  axios.post('/auth/logout').then(location.replace('/'))
 }

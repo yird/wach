@@ -75,10 +75,9 @@ export default class Signup extends React.Component {
 
   render () {
     return (
-      <Modal open={this.state.modal} dimmer='inverted' trigger={<Button basic primary>Signup</Button>} className='signup-model' size='small' closeIcon='close'>
+      <Modal open={this.state.modal} dimmer='inverted' trigger={<Button basic primary>Signup</Button>} className='signup-modal' size='small' closeIcon='close'>
         <Modal.Header style={{textAlign: 'center'}}>Sign up</Modal.Header>
         <Modal.Content image>
-          <Image wrapped size='medium' src='http://semantic-ui.com/images/avatar2/large/rachel.png' />
           <Modal.Description className='form-container'>
             <Form className='signup-form' onSubmit={this.onSubmit}>
               <Form.Field>

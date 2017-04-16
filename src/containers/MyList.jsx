@@ -1,16 +1,28 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import MovieCard from '../components/MovieCard'
-import { Item } from 'semantic-ui-react'
+import { Item, Loader, Button, Dimmer, Header, Icon } from 'semantic-ui-react'
+import { browserRouter as Router } from 'react-router'
 import axios from 'axios'
+import Login from './Login'
+import Signup from './Signup'
 
-export default class MyList extends React.Component {
+class MyList extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      favorites: []
+      mylist: []
     }
     this.getApi = this.getApi.bind(this)
-    this.handleAddorDelete = this.handleAddorDelete.bind(this)
+    this.handleHide = this.handleHide.bind(this)
+  }
+
+  componentDidMount () {
+    document.body.scrollTop = 0
+    axios.get('/api/getFavorites')
+      .then(res => {
+        this.getApi(res.data)
+      })
   }
 
   getApi (id) {
@@ -22,48 +34,35 @@ export default class MyList extends React.Component {
     })
       ).then(res => {
         this.setState({
-          favorites: res.reverse()
+          mylist: res.reverse()
         })
       })
   }
-
-  componentDidMount () {
-    document.body.scrollTop = 0
-    axios.get('/api/getFavorites')
-      .then(res => {
-        console.log(res)
-        this.getApi(res.data)
-      })
-  }
-
-  handleAddorDelete (id, status) {
-    id = {id: id}
-
-    if (!status) {
-      axios.put('/api/addFavorite', id)
-        .then(
-          axios.get('/api/getFavorites')
-          .then(res => {
-            this.getApi(res.data)
-          })
-        )
-    } else {
-      axios.put('/api/deleteFavorite', id)
-          .then(
-            axios.get('/api/getFavorites')
-            .then(res => {
-              this.getApi(res.data)
-            })
-          )
-    }
-    return true
+  handleHide () {
+    this.props.history.push('/')
   }
 
   render () {
+    if (this.props.Store.user.loading) {
+      return <Loader active />
+    }
+    if(!this.props.Store.authenticated){
+      return (
+        <Dimmer inverted active onClickOutside={this.handleHide}>
+          <Header inverted icon as='h2'>
+            <Icon name='lock' />
+            You Must be Logged in!
+            <Header.Subheader>
+              <Button color='blue' content='Ok' onClick={this.handleHide} style={{margin:'2em'}}/>
+            </Header.Subheader>
+          </Header>
+        </Dimmer>
+      )
+    }
     return (
       <div className='container'>
         <Item.Group className='movie-group'>
-          {this.state.favorites.map((movie) => {
+          {this.state.mylist.map((movie) => {
             return (
               <MovieCard key={movie.id} movie={movie} />
             )
@@ -73,3 +72,11 @@ export default class MyList extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    Store: state.userReducer
+  }
+}
+
+export default connect(mapStateToProps)(MyList)
