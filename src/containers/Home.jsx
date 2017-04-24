@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import MovieCard from '../components/MovieCard'
 import { Item, Loader } from 'semantic-ui-react'
 
-const Home = ({Popular}) => {
-  if (Popular.loading) return <Loader active />
+const Home = ({Store}) => {
+  if (Store.popular.loading || Store.user.loading) return <Loader active />
   return (
     <div className='container'>
       <Item.Group className='movie-group'>
-        {Popular.movies.map((movie) => {
+        {Store.popular.movies.map((movie) => {
           return (<MovieCard key={movie.id} movie={movie} />)
         })}
       </Item.Group>
@@ -18,7 +18,7 @@ const Home = ({Popular}) => {
 
 const mapStateToProps = (state) => {
   return {
-    Popular: state.userReducer.popular
+    Store: state.userReducer
   }
 }
 

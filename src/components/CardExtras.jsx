@@ -1,95 +1,73 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import {Item, Button, Icon} from 'semantic-ui-react'
+import {Item, Button, Icon, Popup } from 'semantic-ui-react'
 
 class CardExtras extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      id: this.props.id,
-      added: null,
-      loved: null,
-      watched: null
+      isMylist: null,
+      isLoved: null,
+      isWatched: null
     }
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount () {
-    if(this.props.Authenticated) {
-    axios.get('/api/getFavorites')
+    if (this.props.Authenticated) {
+      axios.get('/api/getUserMovies')
     .then(res => {
-      var isValue = res.data.includes(this.state.id)
+      var isMylist = res.data.mylist.includes(this.props.id)
+      var isLoved = res.data.loved.includes(this.props.id)
+      var isWatched = res.data.watched.includes(this.props.id)
       this.setState({
-        added: isValue
+        isMylist,
+        isLoved,
+        isWatched
       })
     })
     }
   }
 
   handleClick (e, {name}) {
-    if (name === 'add') {
-      let done = this.props.handleAddorDelete(this.state.id, this.state.added)
-      if (done) {
-        this.setState({
-          added: !this.state.added
-        })
+    if(this.props.Authenticated){
+      if (name === 'mylist') {
+        !this.state.isMylist ? (axios.put('/api/addMovie', {type: name, id: this.props.id}))
+          : (axios.put('/api/deleteMovie', {type: name, id: this.props.id}))
+        this.setState({isMylist: !this.state.isMylist})
+      }
+      if (name === 'loved') {
+        !this.state.isLoved ? (axios.put('/api/addMovie', {type: name, id: this.props.id}))
+          : (axios.put('/api/deleteMovie', {type: name, id: this.props.id}))
+        this.setState({isLoved: !this.state.isLoved})
+      }
+      if (name === 'watched') {
+        !this.state.isWatched ? (axios.put('/api/addMovie', {type: name, id: this.props.id}))
+          : (axios.put('/api/deleteMovie', {type: name, id: this.props.id}))
+        this.setState({isWatched: !this.state.isWatched})
       }
     }
-    if (name === 'love') {
-      this.setState({
-        loved: !this.state.loved
-      })
-    }
-    if (name === 'watched') {
-      this.setState({
-        watched: !this.state.watched
-      })
-    }
-  }
-    handleAddorDelete (id, status) {
-    id = {id: id}
-
-    if (!status) {
-      axios.put('/api/addFavorite', id)
-        .then(
-          axios.get('/api/getFavorites')
-          .then(res => {
-            this.getApi(res.data)
-          })
-        )
-    } else {
-      axios.put('/api/deleteFavorite', id)
-          .then(
-            axios.get('/api/getFavorites')
-            .then(res => {
-              this.getApi(res.data)
-            })
-          )
-    }
-    return true
   }
 
   render () {
-    let add = <Button name='add' basic onClick={this.handleClick}><Icon className='extra-icons' name='add' /></Button>
-    let love = <Button name='love' basic onClick={this.handleClick}><Icon className='extra-icons' name='heart' /></Button>
-    let watched = <Button name='watched' basic onClick={this.handleClick}><Icon className='extra-icons' name='desktop' /></Button>
-
-    if (this.state.added) {
-      add = <Button name='add' basic onClick={this.handleClick}><Icon color='red' className='extra-icons' name='remove' /></Button>
-    }
-    if (this.state.loved) {
-      love = <Button name='love' basic onClick={this.handleClick}><Icon color='red' className='extra-icons' name='heart' /></Button>
-    }
-    if (this.state.watched) {
-      watched = <Button name='watched' basic onClick={this.handleClick}><Icon color='red' className='extra-icons' name='desktop' /></Button>
-    }
     return (
       <Item.Content className='extra-card'>
-        {add}
-        {love}
-        {watched}
+        {this.state.isMylist ? (
+          <Button name='mylist' basic onClick={this.handleClick}> <Icon color='red' className='extra-icons' name='remove' /> </Button>
+        )
+          : <Button name='mylist' basic onClick={this.handleClick}> <Icon className='extra-icons' name='add' /> </Button>
+        }
+        {this.state.isLoved ? (
+          <Button name='loved' basic onClick={this.handleClick}><Icon color='red' className='extra-icons' name='heart' /></Button>
+        )
+          : <Button name='loved' basic onClick={this.handleClick}><Icon className='extra-icons' name='heart' /></Button>
+        }
+        {this.state.isWatched ? (
+          <Button name='watched' basic onClick={this.handleClick}><Icon color='red' className='extra-icons' name='desktop' /></Button>
+        )
+          : <Button name='watched' basic onClick={this.handleClick}><Icon className='extra-icons' name='desktop' /></Button>
+        }
       </Item.Content>
-
     )
   }
 }

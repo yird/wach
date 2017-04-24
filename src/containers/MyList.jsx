@@ -46,14 +46,14 @@ class MyList extends React.Component {
     if (this.props.Store.user.loading) {
       return <Loader active />
     }
-    if(!this.props.Store.authenticated){
+    if (!this.props.Store.authenticated) {
       return (
         <Dimmer inverted active onClickOutside={this.handleHide}>
           <Header inverted icon as='h2'>
             <Icon name='lock' />
             You Must be Logged in!
             <Header.Subheader>
-              <Button color='blue' content='Ok' onClick={this.handleHide} style={{margin:'2em'}}/>
+              <Button color='blue' content='Ok' onClick={this.handleHide} style={{margin: '2em'}} />
             </Header.Subheader>
           </Header>
         </Dimmer>
