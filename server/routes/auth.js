@@ -6,6 +6,7 @@ router.post('/getuser', function (req, res) {
   if (req.session.userId) {
     User.findById(req.session.userId)
     .exec(function (error, user) {
+      if (error) { res.status(404).send() }
       var userInfo = {
         name: user.name,
         email: user.email,

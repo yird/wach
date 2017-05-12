@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Input, Menu, Button } from 'semantic-ui-react'
+import { Input, Menu, Button, Icon, Popup } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import Login from '../containers/Login'
 import Signup from '../containers/Signup'
 import Profile from '../containers/Profile'
+import SearchInput from './SearchInput'
 
 const Nav = ({Authenticated, Loading}) => {
   if (Loading) return <i />
@@ -14,9 +15,15 @@ const Nav = ({Authenticated, Loading}) => {
         <Link to='/'><Button basic name='home' >Home</Button></Link>
       </Menu.Item>
       <Menu.Item><Link to='/mylist'><Button basic>My List</Button></Link></Menu.Item>
-      <Menu.Item> <Input icon='search' placeholder='Search...' /></Menu.Item>
+      <Menu.Item><SearchInput /></Menu.Item>
       {Authenticated ? (
         <Menu.Menu position='right'>
+          <Menu.Item>
+            <Popup
+              trigger={<Link to='/watched'><Button basic><Icon className='extra-icons' name='desktop' /></Button></Link>}
+              content='Watched'
+            />
+          </Menu.Item>
           <Menu.Item><Profile /></Menu.Item>
         </Menu.Menu>
         ) : (

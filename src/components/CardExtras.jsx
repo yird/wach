@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import {Item, Button, Icon, Popup } from 'semantic-ui-react'
+import {Item, Button, Icon} from 'semantic-ui-react'
 
 class CardExtras extends React.Component {
   constructor (props) {
@@ -30,7 +30,7 @@ class CardExtras extends React.Component {
   }
 
   handleClick (e, {name}) {
-    if(this.props.Authenticated){
+    if (this.props.Authenticated) {
       if (name === 'mylist') {
         !this.state.isMylist ? (axios.put('/api/addMovie', {type: name, id: this.props.id}))
           : (axios.put('/api/deleteMovie', {type: name, id: this.props.id}))
@@ -53,9 +53,9 @@ class CardExtras extends React.Component {
     return (
       <Item.Content className='extra-card'>
         {this.state.isMylist ? (
-          <Button name='mylist' basic onClick={this.handleClick}> <Icon color='red' className='extra-icons' name='remove' /> </Button>
+          <Button name='mylist' basic onClick={this.handleClick}> <Icon color='red' className='extra-icons' name='remove' /></Button>
         )
-          : <Button name='mylist' basic onClick={this.handleClick}> <Icon className='extra-icons' name='add' /> </Button>
+          : <Button name='mylist' basic onClick={this.handleClick}><Icon className='extra-icons' name='add' /> </Button>
         }
         {this.state.isLoved ? (
           <Button name='loved' basic onClick={this.handleClick}><Icon color='red' className='extra-icons' name='heart' /></Button>

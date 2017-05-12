@@ -34,9 +34,9 @@ router.put('/addMovie', function (req, res) {
   var data = {}
   data[req.body.type] = req.body.id
   User.findByIdAndUpdate(req.session.userId,
-    { '$addToSet': data},
-    function (err, managerparent) {
-      if (err) { console.log(error) }
+    {'$addToSet': data},
+    function (error, managerparent) {
+      if (error) { console.log(error) }
     }
     )
 })
@@ -46,8 +46,8 @@ router.put('/deleteMovie', function (req, res) {
   User.update({_id: req.session.userId},
     { '$pull': data },
     { safe: true },
-    function (err, managerparent) {
-      if (err) { console.log(error) }
+    function (error, managerparent) {
+      if (error) { console.log(error) }
     }
     )
 })

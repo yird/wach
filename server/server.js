@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const path = require('path')
 const port = 8000
-const User = require('./models/user')
 const app = express()
 const authRouter = require('./routes/auth')
 const apiRouter = require('./routes/api')

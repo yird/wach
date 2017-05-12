@@ -5,11 +5,11 @@ import { Item, Loader } from 'semantic-ui-react'
 import axios from 'axios'
 import NoAuth from '../components/NoAuth'
 
-class MyList extends React.Component {
+class Watched extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      mylist: []
+      watched: []
     }
     this.getApi = this.getApi.bind(this)
   }
@@ -18,7 +18,7 @@ class MyList extends React.Component {
     document.body.scrollTop = 0
     axios.get('/api/getUserMovies')
       .then(res => {
-        this.getApi(res.data.mylist)
+        this.getApi(res.data.watched)
       })
   }
 
@@ -31,7 +31,7 @@ class MyList extends React.Component {
     })
       ).then(res => {
         this.setState({
-          mylist: res.reverse()
+          watched: res.reverse()
         })
       })
   }
@@ -45,7 +45,7 @@ class MyList extends React.Component {
     return (
       <div className='container'>
         <Item.Group className='movie-group'>
-          {this.state.mylist.map((movie) => {
+          {this.state.watched.map((movie) => {
             return (
               <MovieCard key={movie.id} movie={movie} />
             )
@@ -62,4 +62,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(MyList)
+export default connect(mapStateToProps)(Watched)

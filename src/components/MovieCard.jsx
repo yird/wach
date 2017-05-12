@@ -4,9 +4,14 @@ import Trailer from './Trailer'
 import CardExtras from './CardExtras'
 
 export default ({movie}) => {
+  let poster
+  movie.poster_path ? (
+    poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+  ) : (poster = `/images/noimage.png`)
+
   return (
     <Item className='movie-card'>
-      <Item.Image src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+      <Item.Image src={poster} />
       <Item.Content className='card-content'>
         <Item.Header as='a'>{movie.title}</Item.Header>
         <Item.Meta>

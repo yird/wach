@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Embed, Button, Modal, Icon} from 'semantic-ui-react'
+import { Embed, Button, Modal, Icon } from 'semantic-ui-react'
 
 export default class Trailer extends React.Component {
   constructor (props) {
@@ -10,11 +10,15 @@ export default class Trailer extends React.Component {
     }
   }
   componentDidMount () {
-    var api_key = 'd70794e4c63eb2c23e3e2a0cfeaa9534'
-    axios.get(`https://api.themoviedb.org/3/movie/${this.props.movie.id}/videos?api_key=${api_key}&language=en-US`)
+    var apiKey = 'd70794e4c63eb2c23e3e2a0cfeaa9534'
+    axios.get(`https://api.themoviedb.org/3/movie/${this.props.movie.id}/videos?api_key=${apiKey}&language=en-US`)
         .then((res) => {
+          var vidId = 'NTzycsqxYJ0'
+          if(res.data.results[0]){
+           vidId = res.data.results[0].key
+          }
           this.setState({
-            vid: res.data.results[0].key
+            vid: vidId
           })
         })
   }

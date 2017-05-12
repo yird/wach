@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Input, Image, Icon, Form, Modal } from 'semantic-ui-react'
+import { Button, Input, Icon, Form, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 
 export default class Signup extends React.Component {
@@ -75,7 +75,7 @@ export default class Signup extends React.Component {
 
   render () {
     return (
-      <Modal open={this.state.modal} dimmer='inverted' trigger={<Button basic primary>Signup</Button>} className='signup-modal' size='small' closeIcon='close'>
+      <Modal open={this.state.modal} trigger={<Button basic primary>Signup</Button>} className='signup-modal' size='small' closeIcon='close'>
         <Modal.Header style={{textAlign: 'center'}}>Sign up</Modal.Header>
         <Modal.Content image>
           <Modal.Description className='form-container'>

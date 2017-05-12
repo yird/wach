@@ -16,7 +16,7 @@ export const setInitState = () => {
         dispatch({type: 'GET_USER_REJECTED'})
       })
     // Get popular movies
-    dispatch({ type: 'GET_POPULAR_PENDING'})
+    dispatch({type: 'GET_POPULAR_PENDING'})
     axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`)
         .then((res) => {
           dispatch({
@@ -31,5 +31,5 @@ export const setInitState = () => {
 }
 
 export const logout = () => {
-  axios.post('/auth/logout').then(location.replace('/'))
+  axios.post('/auth/logout').then(window.location.replace('/'))
 }
