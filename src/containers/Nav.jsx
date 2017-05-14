@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Input, Menu, Button, Icon, Popup } from 'semantic-ui-react'
+import { Menu, Button, Icon, Popup } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import Login from '../containers/Login'
 import Signup from '../containers/Signup'

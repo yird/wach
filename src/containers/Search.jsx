@@ -1,34 +1,38 @@
 import React from 'react'
 import axios from 'axios'
-import { Loader, Input, Item } from 'semantic-ui-react'
+import { Loader, Item } from 'semantic-ui-react'
 import MovieCard from '../components/MovieCard'
 
-export default class Trailer extends React.Component {
+export default class Search extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       results: null
     }
+    this.updateSearch = this.updateSearch.bind(this)
   }
-    componentDidMount () {
-      console.log('did mount')
-    var apiKey = 'd70794e4c63eb2c23e3e2a0cfeaa9534'
-    var query = this.props.location.search
+
+  updateSearch (search) {
+    let query = search.slice(3, search.length).trim()
     axios.get(`https://api.themoviedb.org/3/search/movie?api_key=d70794e4c63eb2c23e3e2a0cfeaa9534&language=en-US&query=${query}`)
         .then((res) => {
-          console.log(res)
           this.setState({
             results: res.data.results
           })
         })
   }
-
+  componentDidMount () {
+    let search = this.props.location.search
+    this.updateSearch(search)
+  }
+  componentWillReceiveProps (nextProps) {
+    let search = nextProps.location.search
+    this.updateSearch(search)
+  }
   render () {
-    console.log(this.props)
-   console.log(this.state)
-       if(this.state.results === null){
-        return(<Loader active />)
-      }
+    if (!this.state.results) {
+      return (<Loader active />)
+    }
     return (
       <div className='container'>
         <Item.Group className='movie-group'>
@@ -39,6 +43,6 @@ export default class Trailer extends React.Component {
           })}
         </Item.Group>
       </div>
-  )
-}
+    )
+  }
 }

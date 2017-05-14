@@ -18,7 +18,7 @@ const App = () => {
           <Route exact path='/' component={Home} />
           <Route path='/mylist' component={MyList} />
           <Route path='/watched' component={Watched} />
-          <Route path='/search' component={Search} />
+          <Route path='/s' component={Search} />
         </div>
       </Router>
     </Provider>
