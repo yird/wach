@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import {Item, Button, Icon} from 'semantic-ui-react'
+import {Item, Popup, Button, Icon} from 'semantic-ui-react'
 
 class CardExtras extends React.Component {
   constructor (props) {
@@ -53,19 +53,37 @@ class CardExtras extends React.Component {
     return (
       <Item.Content className='extra-card'>
         {this.state.isMylist ? (
-          <Button name='mylist' basic onClick={this.handleClick}> <Icon color='red' className='extra-icons' name='remove' /></Button>
+          <Popup
+            trigger={<span><Button name='mylist' basic onClick={this.handleClick}> <Icon color='red' className='extra-icons' name='remove' /></Button></span>}
+            content='Remove from My List'
+          />
         )
-          : <Button name='mylist' basic onClick={this.handleClick}><Icon className='extra-icons' name='add' /> </Button>
+          : <Popup
+            trigger={<span><Button name='mylist' basic onClick={this.handleClick}><Icon className='extra-icons' name='add' /> </Button></span>}
+            content='Add to My List'
+          />
         }
         {this.state.isLoved ? (
-          <Button name='loved' basic onClick={this.handleClick}><Icon color='red' className='extra-icons' name='heart' /></Button>
+          <Popup
+            trigger={<span><Button name='loved' basic onClick={this.handleClick}><Icon color='red' className='extra-icons' name='heart' /></Button></span>}
+            content='Remove from Loved'
+          />
         )
-          : <Button name='loved' basic onClick={this.handleClick}><Icon className='extra-icons' name='heart' /></Button>
+          : <Popup
+            trigger={<span><Button name='loved' basic onClick={this.handleClick}><Icon className='extra-icons' name='heart' /></Button></span>}
+            content='Add to Loved'
+          />
         }
         {this.state.isWatched ? (
-          <Button name='watched' basic onClick={this.handleClick}><Icon color='red' className='extra-icons' name='desktop' /></Button>
+          <Popup
+            trigger={<span><Button name='watched' basic onClick={this.handleClick}><Icon color='red' className='extra-icons' name='desktop' /></Button></span>}
+            content='Remove from Watched'
+          />
         )
-          : <Button name='watched' basic onClick={this.handleClick}><Icon className='extra-icons' name='desktop' /></Button>
+          : <Popup
+            trigger={<span><Button name='watched' basic onClick={this.handleClick}><Icon className='extra-icons' name='desktop' /></Button></span>}
+            content='Watched'
+          />
         }
       </Item.Content>
     )

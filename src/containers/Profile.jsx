@@ -5,7 +5,7 @@ import { logout } from '../actions/userActions'
 
 const Profile = ({User, Logout}) => {
   return (
-    <Dropdown icon='user' text={User.name} floating labeled button basic className='icon'>
+    <Dropdown icon='user' text={User.name} pointing='top right' floating labeled button basic className='icon'>
       <Dropdown.Menu>
         <Dropdown.Item disabled className='dropdownHeader'>
           <Icon name='tags' />

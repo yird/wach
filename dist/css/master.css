@@ -41,7 +41,7 @@
   margin-right: -12px !important;
   margin-left: 0.8em !important;
 }
-.extra-card > button {
+.extra-card > span {
   float: right !important;
   margin-bottom: 3em !important;
 }

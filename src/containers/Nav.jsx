@@ -14,7 +14,16 @@ const Nav = ({Authenticated, Loading}) => {
       <Menu.Item>
         <Link to='/'><Button basic name='home' >Home</Button></Link>
       </Menu.Item>
-      <Menu.Item><Link to='/mylist'><Button basic>My List</Button></Link></Menu.Item>
+      {Authenticated ? (
+        <Menu.Item><Link to='/mylist'><Button basic>My List</Button></Link></Menu.Item>
+      ) : (
+        <Menu.Item><Popup
+          trigger={<Button basic>My List</Button>}
+          content='You must be logged in'
+          on='click'
+          hideOnScroll
+        /></Menu.Item>
+      )}
       <Menu.Item><SearchInput /></Menu.Item>
       {Authenticated ? (
         <Menu.Menu position='right'>
