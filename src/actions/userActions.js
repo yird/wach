@@ -33,3 +33,21 @@ export const setInitState = () => {
 export const logout = () => {
   axios.post('/auth/logout').then(window.location.replace('/'))
 }
+
+export const getPopular = (pageNumber) => {
+  console.log('inpop');
+  return dispatch => {
+    console.log(pageNumber)
+     axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${pageNumber}`)
+        .then((res) => {
+          dispatch({
+            type: 'SET_POPULAR',
+            payload: res.data.results
+          })
+         document.body.scrollTop = 0 
+        })
+      .catch(res => {
+        dispatch({type: 'SET_POPULAR_REJECTED'})
+      }) 
+  }
+}

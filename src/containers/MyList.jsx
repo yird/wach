@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import MovieCard from '../components/MovieCard'
-import { Item, Loader } from 'semantic-ui-react'
+import { Item, Loader, Message } from 'semantic-ui-react'
 import axios from 'axios'
 import NoAuth from '../components/NoAuth'
 
@@ -9,7 +9,8 @@ class MyList extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      mylist: []
+      mylist: [],
+      empty: false
     }
     this.getApi = this.getApi.bind(this)
   }
@@ -30,18 +31,30 @@ class MyList extends React.Component {
           })
     })
       ).then(res => {
+        if (res.length < 1){
+          this.setState({
+            empty: true
+          })
+        }
         this.setState({
-          mylist: res.reverse()
+          mylist: res.reverse(),
         })
       })
   }
   render () {
     if (this.props.Store.user.loading) {
       return <Loader active />
-    }
+    } 
     if (!this.props.Store.authenticated) {
       return <NoAuth history={this.props.history} />
     }
+   if(this.state.empty){
+     return   <Message
+    className='is-empty'
+    icon='inbox'
+    header='Your list is empty.'
+    content='Here you can view films added to your list, you may add films by searching or browsing the popular section.'
+  />   } 
     return (
       <div className='container'>
         <Item.Group className='movie-group'>

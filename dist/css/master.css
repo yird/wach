@@ -54,3 +54,14 @@
 .auth-avatar > img {
   border-radius: 5%;
 }
+
+.bottom-pages {
+  text-align: center;
+  margin-top: -3em;
+
+}
+
+.is-empty {
+  width: 80% !important;
+  margin: 8em auto !important;
+  }

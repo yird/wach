@@ -25,7 +25,7 @@ export default class Trailer extends React.Component {
 
   render () {
     return (
-      <Modal trigger={
+      <Modal closeIcon='close' trigger={
         <Button basic color='grey' animated='fade'>
           <Button.Content visible>Trailer</Button.Content>
           <Button.Content hidden className='hidden-button'>

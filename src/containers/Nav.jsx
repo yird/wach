@@ -28,11 +28,8 @@ const Nav = ({Authenticated, Loading}) => {
       {Authenticated ? (
         <Menu.Menu position='right'>
           <Menu.Item>
-            <Popup
-              trigger={<Link to='/watched'><Button basic><Icon className='extra-icons' name='desktop' /></Button></Link>}
-              content='Watched'
-            />
-          </Menu.Item>
+            <Link to='/watched'><Button basic><Icon className='extra-icons' name='desktop' /></Button></Link>
+            </Menu.Item>
           <Menu.Item><Profile /></Menu.Item>
         </Menu.Menu>
         ) : (
